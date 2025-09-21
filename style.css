@@ -149,3 +149,13 @@ button:disabled {
         font-size: 50px;
     }
 }
+
+#resultado.erro {
+    color: red;
+    font-family: 'Inter';
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
