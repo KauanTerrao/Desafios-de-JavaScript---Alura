@@ -1,3 +1,11 @@
+/** Descrição da função:
+ * 
+ * A função irá gerar valores pseudo-aleatorios através dos dados informados pelo usuário
+ * 
+ * Parâmetros: Não se aplica.
+ * 
+ * Retorno: Não há retorno.
+ */
 function sortear() {
     var statusPodeSeguir = validarDados();
 
@@ -24,7 +32,7 @@ function sortear() {
 
 /** Descrição da função:
  * 
- * Gera um número inteiro pseudo-aleatório dentro de um intervalo definido.
+ * A função gera um número inteiro pseudo-aleatório dentro de um intervalo definido.
  *
  * Parâmetros:
  * 
@@ -32,7 +40,7 @@ function sortear() {
  * 
  * max — Valor máximo do intervalo (inclusive). Deve ser igual ou maior que "min".
  *
- * Retorna: Um número inteiro entre "min" e "max", incluindo ambos os extremos.
+ * Retorno: Um número inteiro entre "min" e "max", incluindo ambos os extremos.
  */
 function obterNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -57,6 +65,14 @@ function alterarStatusBotao() {
     botao.disabled = !desabilitado;
 }
 
+/** Descrição da função:
+ * 
+ * A função irá restaurar os campos e o texto informativo.
+ *
+ * Parâmetros: Não se aplica.
+ *
+ * Retorno: Não há retorno.
+ */
 function reiniciar() {
     document.getElementById('quantidade').value = '';
     document.getElementById('de').value = '';
@@ -65,6 +81,16 @@ function reiniciar() {
     alterarStatusBotao();
 }
 
+/** Descrição da função:
+ * 
+ * A função valida todos os campos necessários para o sorteio e verifica se é possível prosseguir.
+ * 
+ * Para cada verificação que falhar, exibe o aviso correspondente na tela.
+ *
+ * Parâmetros: Não se aplica.
+ * 
+ * Retorno: true se todos os campos estiverem válidos; false caso contrario.
+ */
 function validarDados() {
     if (!validarCamposVazios()) return false;
     if (!validarValorInteiroDosCampos()) return false;
@@ -82,7 +108,7 @@ function validarDados() {
  *
  * Parâmetros: Não se aplica.
  *
- * Retorno: 'true' ou 'false'.
+ * Retorno: true se válido, false caso contrário
  */
 function validarCamposVazios() {
     // Atribui os status dos campos:
@@ -106,25 +132,34 @@ function validarCamposVazios() {
 
     return true;
 }
-
+/** Descrição da função:
+ * 
+ * A função irá validar se todos os valores 'quantidade', 'de' e 'ate' são positivos e superior a 0,
+ * 
+ * Se algum valor for menor ou igual a 0 ele para o sorteio e informa um aviso na tela.
+ *
+ * Parâmetros: Não se aplica.
+ *
+ * Retorno: true se válido, false caso contrário
+ */
 function validarValorInteiroDosCampos() {
     // Atribui os status dos campos:
     // Verifica se cada campo está com valores incompativeis com o sorteio como 0 e negativos, se sim retorna 'true' senão 'false'.
-    let valorQuantidadeEhInteiro = document.getElementById('quantidade').value < 1;
-    let valorDeEhInteiro = document.getElementById('de').value < 1;
-    let valorAteEhInteiro = document.getElementById('ate').value < 1;
+    let valorQuantidadeEhPermitido = document.getElementById('quantidade').value < 1;
+    let valorDeEhPermitido  = document.getElementById('de').value < 1;
+    let valorAteEhPermitido = document.getElementById('ate').value < 1;
 
-    if (valorQuantidadeEhInteiro) {
+    if (valorQuantidadeEhPermitido) {
         alert('O valor do campo "quantidade" não pode ser 0 ou negativo, insira novamente outro valor.');
         document.getElementById('quantidade').value = '';
         return false;
     }
-    if (valorDeEhInteiro) {
+    if (valorDeEhPermitido) {
         alert('O valor do campo "de" não pode ser 0 ou negativo, insira novamente outro valor.');
         document.getElementById('de').value = '';
         return false;
     }
-    if (valorAteEhInteiro) {
+    if (valorAteEhPermitido) {
         alert('O valor do campo quantidade não pode ser 0 ou negativo, insira novamente outro valor.');
         document.getElementById('ate').value = '';
         return false;
@@ -133,7 +168,18 @@ function validarValorInteiroDosCampos() {
     return true;
 }
 
+/** Descrição da função:
+ * 
+ * A função irá validar se os valores 'de' e 'ate' são informados de forma crescente,
+ * 
+ * Se do campo "ate" for menor do que o campo "de" ele para o sorteio e informa um aviso na tela.
+ *
+ * Parâmetros: Não se aplica.
+ *
+ * Retorno: true se válido, false caso contrário
+ */
 function validarInversaoDosValores() {
+    // Atribui os valores dos campos nas variaveis:
     let valorDoCampoDe  = parseInt(document.getElementById('de').value);
     let valorDoCampoAte = parseInt(document.getElementById('ate').value);
     
@@ -146,7 +192,18 @@ function validarInversaoDosValores() {
     return true;
 }
 
+/** Descrição da função:
+ * 
+ * A função irá validar se o intervalo do valores "de" e "ate" é menor ou igual ao da "quantidade",
+ * 
+ * Se quantidade for maior que o intervalo informado, ele para o sorteio e informa um aviso na tela.
+ *
+ * Parâmetros: Não se aplica.
+ *
+ * Retorno: true se válido, false caso contrário
+ */
 function validarQuantidadeXIntervaloDeSorteio() {
+    // Atribui os valores dos campos nas variaveis:
     let valorQuantidade = parseInt(document.getElementById('quantidade').value);
     let valorDoCampoDe  = parseInt(document.getElementById('de').value);
     let valorDoCampoAte = parseInt(document.getElementById('ate').value);
@@ -154,7 +211,7 @@ function validarQuantidadeXIntervaloDeSorteio() {
     
     if (valorQuantidade > intervalo) {
         alert(`O campo quantidade é maior que o intervalo informado.\n`  +
-             `Informar a quantidade desejada inferior á ${intervalo},\n` + 
+             `Informar a quantidade desejada até ${intervalo},\n` + 
              `Ou informar no campo Até um valor superior.`);
         return false;
     }
